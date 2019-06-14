@@ -66,9 +66,9 @@ myFunction();
 // Solution:
 /*
   The nestedFunction() binding can assess the internal variable outside of it
-because function binding in JavaScript works in a way that they can identify
+because function scope in JavaScript works in a way that they can identify
 variables that surround them. This characteristic is true for variables in the global scope,
-since the global scope surrounds all the other scopes global variables can be 
+since the global scope surrounds all the other scopes. Global variables can be 
 accessed anywhere regardless of the number of nested layers. On the other hand, parent functions can't identify 
 variables of nested functions. 
 
@@ -80,10 +80,10 @@ function myFunction() {
   console.log(subInternal);
 }
 
-This will come back as undefined because myFunction() can not look into 
-nestedFunction.
+This will come back as a ReferenceError because myFunction() can not look into 
+nestedFunction for the subInternal variable.
 */
- 
+
 
 
 
