@@ -30,13 +30,108 @@ Edit this document to include your answers after each question. Make sure to lea
 
 1. Describe the biggest difference between `.forEach` & `.map`.
 
+The biggest differences I can think of between .forEach and .map are 
+.forEach is primarily used for side effect purposes (for example console logging each individual element within an array), it doesn't create a new array after it's done executing the passed callback function, and lastly .forEach is not chainable within other ES6 array methods. In relation to .map(); .forEach() can be thought of as simply a for loop with less syntax to type out while .map() can be regarded as a for loop that automatically appends all the mutated elements within a new array.
+
 2. What is the difference between a function and a method?
+
+Simply speaking a method is a function except it is written within a class or object. In addition, usually object and class methods are written as anonymous functions (example function() { return 'Hello'} or () => return 'Hello') while functions can be written in anonymous and function declaration notation (example function declaration function name() { return 'Hello'}).
 
 3. What is closure?
 
+A closure is a combination of a function and the lexical environment within which that function was declared. In addition, whenever a function is created a new scope is created that encampsulates that function's environment where variables declared outside of its context can be referenced.
+example:
+
+```
+const myName = 'Mason';
+
+function getName() {
+	console.log(myName);
+}
+```
+
+The myName function was able to reach outward to the global scope for reference to the myName variable. With that said, remember that though function scopes can look outward for reference they can never look inward for other references. 
+example:
+
+```
+function getName() {
+	function nestedName() {
+		const myName = 'Mason';
+	}
+	console.log(myName);
+}
+```
+
+The output for this command will be a ReferenceError since nestedName() is within getName() and getName() can't reference myName.
+
 4. Describe the four rules of the 'this' keyword.
 
+To begin, the four rules are Global binding, Implicit binding, New binding, and Explicit binding. 
+
+Global Binding: Also known as the window binding, global binding is the base console view of the JavaScript coding environment without the inclusion of nested object bindings. You can access global binding through the command 
+
+```console.log(this);```
+
+Implicit Binding: Usually reserved for objects and classes, is used for object methods that need to access particular keys within the object's body. 
+example:
+
+```
+const myObj = {
+	greeting: 'Hello',
+	sayHello: function(name) {
+		console.log(this.greeting + ' my name is ' + name);
+	}
+} 
+
+
+myObj.sayHello('John');
+```
+
+As you can see in the above example, the binding for this in the sayHello method is myObj.
+
+New Binding: Primarily reserved for the new ES6 class syntax, new binding obtains its this binding through referencing the class object with which it was called. 
+example:
+
+```
+class myObj = {
+	constructor(props) {
+		this.name = props.name;
+		this.greeting = props.greeting;
+	}
+
+	sayHello() {
+		console.log(this.greeting + ' my name is ' + this.name);
+	}
+} 
+```
+
+const newObject = new myObj({name: 'Charles', greeting: 'Hello'});
+newObject.sayHello();
+
+As you can see the object {name: 'Charles', greeting: 'Hello'} is now bound to the myObj class through the new keyword. 
+
+Implicit Binding: This rule is only allocated to the methods call, apply, and bind. Their purpose within the JavaScript ecosystem is to forcibly assign this binding to any object you pass as an argument.
+example:
+
+```
+const sayHello = function() {
+	console.log(this.greeting + ' ' + this.name);
+}
+
+sayHello.call({name: 'Mason', greeting: 'Hello'}); // Hello Mason
+```
+
+As you can see I explicitly passed name and greeting into the sayHello function that has references to this.greeting and this.name.
+
 5. Why do we need super() in an extended class?
+
+You need a super() command within the constructor block when ever extending from a parent class because super() allows you to pass the child properties to the parent class constructor block. This convention is just like the old pseudo class notation where you had to type
+
+```
+ParentObject.call(this, childProps)
+```
+
+in order to pass the child properties to the parent properties. And so without super() the child constructor block wouldn't have access to the parent properties and by extension the child wouldn't be truly a subclass of the parent.
 
 ## Project Set up
 
